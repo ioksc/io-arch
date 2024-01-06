@@ -48,7 +48,7 @@ mount /dev/$sda1 /mnt/boot/efi/
 # Instalamos los Paquetes base
 # ------------------------------------------------------
 
-pacstrap -K /mnt base base-devel linux linux-firmware vim openssh git intel-ucode
+pacstrap /mnt base base-devel linux linux-firmware vim openssh git intel-ucode
 
 # ------------------------------------------------------
 # Generamos el fstab

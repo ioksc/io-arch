@@ -34,11 +34,11 @@ mkfs.ext4 /dev/$sda2
 # ------------------------------------------------------
 # Montamos las particiones
 # ------------------------------------------------------
-mount /dev/sda2 /mnt/
+mount /dev/$sda2 /mnt/
 
 mkdir -p /mnt/boot/efi/
 
-mount /dev/sda1 /mnt/boot/efi/
+mount /dev/$sda1 /mnt/boot/efi/
 
 # mkdir -p /mnt/home/
 # mount /dev/sda3 /mnt/home/
@@ -59,8 +59,8 @@ cat /mnt/etc/fstab
 
 mkdir /mnt/custom-arch
 
-cp 2-configurations.sh /mnt/custom-arch
-cp applist.txt /mnt/custom-arch
+cp 2-configurations.sh /mnt/custom-arch/
+cp applist.txt /mnt/custom-arch/
 
 arch-chroot /mnt ./custom-arch/2-configurations.sh
 

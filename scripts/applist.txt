@@ -34,7 +34,6 @@ acpi_call
 dnsmasq
 openbsd-netcat
 ipset
-firewalld
 flatpak
 sof-firmware
 nss-mdns
@@ -61,3 +60,4 @@ htop
 ranger
 neofetch
 duf
+firewalld

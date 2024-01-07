@@ -45,6 +45,10 @@ echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
 # Habilitar Servicios
 # ------------------------------------------------------
 systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable sshd
+systemctl enable avahi-daemon
+systemctl enable acpid
 
 clear
 

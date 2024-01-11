@@ -18,8 +18,50 @@
 
 </div>
 
-> [!TIP]
+> [!INFORMATION]
 > El script de instalacion esta basado  en la guia oficial [**wiki.archlinux.org**](https://wiki.archlinux.org/title/Installation_guide)).
+
+## Descarga de ISO y grabado en USB: 
+
+Descargar desde: https://archlinux.org/download/
+- Boot - Linux en SUB:
+```bash
+sudo dd bs=4M if=/home/ioksc/download/archlinux.iso of=/dev/sdc status=progress && sync
+```
+- Boot- Windows: https://www.ventoy.net/
+
+## Pasos Previos:
+
+## Comprobar el modo de arranque para UEFI
+```shell 
+ls /sys/firmware/efi/efivars
+# Listar 
+localectl list-keymaps
+# ejemplo de teclado en español es
+loadkeys es
+
+timedatectl set-ntp true
+``` 
+## Comprobar red y conexión a Wifi
+
+```shell  
+iwlist wlan0 scan
+# wifi WLAN
+iwctl --passphrase 'pass' station wlan0 connect 'SSID-name'
+# o: iwctl --> station wlan0 scan --> station wlan0 connect 'SSID-name'
+```
+## Esquema de Particiónes
+```shell
+cgdisk /dev/sda
+#   Type     Value (Hexcode)             Size       
+# -----------------------------------------------
+# 1 Boot 'EFI System (EF00)'        --> +550M   
+# 2 Swap 'Linux Swap (8200)'        --> +2G     
+# 3 Root 'Linux-x86-64 / (8304)'    --> +20G    
+# 4 Home 'Linux Home (8302)'        --> +100G  
+```
+
+
 
 
 ## 🚀 Instalación de Arch-Linux
@@ -38,15 +80,20 @@ cd io-arch/scripts
 ```
 
 - dar permisos de ejecucion al archivo y ejecutar el script:
-
+- EXT4
 ```bash
 chmod +x 1-archinstall-ext4.sh
 ```
-
+- BTRFS
+```bash
+chmod +x 1-archinstall-btrs.sh
+```
 3. Ejecutar el Script  🚀:
 
 ```bash
 ./1-archinstall-ext4.sh
+# o
+# ./1-archinstall-btrs.sh
 ```
 
 
@@ -57,9 +104,6 @@ chmod +x 1-archinstall-ext4.sh
   <img src="https://contrib.rocks/image?repo=ioksc/io-arch" />
 </a>
 
-## 🧞 Guia Manualmente
-- [**Arch Linux - EXT4**](https://github.com/ioksc/) - Guía Instalación de Arch-Linux usando EXT4.
-- [**Arch Linux - BTRFS**](https://github.com/ioksc/) - Guía Instalación de Arch-Linux usando BTRFS.
 
 ## 🛠️ Enlaces Adicionales:
 

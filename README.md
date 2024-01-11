@@ -18,7 +18,7 @@
 
 </div>
 
-> [!INFORMATION]
+> [!NOTE]
 > El script de instalacion esta basado  en la guia oficial [**wiki.archlinux.org**](https://wiki.archlinux.org/title/Installation_guide)).
 
 ## Descarga de ISO y grabado en USB: 

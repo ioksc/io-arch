@@ -24,7 +24,7 @@
 ## Descarga de ISO y grabado en USB: 
 
 Descargar desde: https://archlinux.org/download/
-- Boot - Linux en SUB:
+- Boot - Linux en USB:
 ```bash
 sudo dd bs=4M if=/home/ioksc/download/archlinux.iso of=/dev/sdc status=progress && sync
 ```

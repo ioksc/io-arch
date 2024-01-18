@@ -26,6 +26,8 @@
 Descargar desde: https://archlinux.org/download/
 - Boot - Linux en USB:
 ```bash
+# Ruta del ISO: /home/ioksc/download/archlinux.iso
+# Dispositivo USB: sdc --> /dev/sdc
 sudo dd bs=4M if=/home/ioksc/download/archlinux.iso of=/dev/sdc status=progress && sync
 ```
 - Boot- Windows: https://www.ventoy.net/

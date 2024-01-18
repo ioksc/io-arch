@@ -53,6 +53,11 @@ mount /dev/$sda1 /mnt/boot/efi
 # mkdir /mnt/vm
 # mount /dev/$sda3 /mnt/vm
 
+sed -i "/^#Color/c\Color\nILoveCandy
+    /^#VerbosePkgLists/c\VerbosePkgLists
+    /^#ParallelDownloads/c\ParallelDownloads = 12" /etc/pacman.conf
+# sed -i '/^#\[multilib\]/,+1 s/^#//' /etc/pacman.conf
+
 
 pacstrap /mnt base base-devel linux linux-firmware vim openssh git intel-ucode
 

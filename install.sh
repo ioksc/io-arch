@@ -38,9 +38,9 @@ main() {
     echo $pROOT
 
     if [[ "$CHOICE" == "ext4" ]]; then 
-        mount /dev/$pROOT /mnt/
+        mount /dev/"$pROOT" /mnt/
         mkdir -p /mnt/boot/efi
-        mount /dev/$pBOOT /mnt/boot/efi
+        mount /dev/"$pBOOT" /mnt/boot/efi
     else 
         mount /dev/"$pROOT" /mnt
         btrfs su cr /mnt/@

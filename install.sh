@@ -33,10 +33,13 @@ main() {
     [[ "$CHOICE" == "ext4" ]] && grep -q "$pROOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Root..." -- mkfs.EXT4 /dev/$pROOT
     [[ "$CHOICE" == "btrfs" ]] && grep -q "$pROOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Root..." -- mkfs.btrfs -f /dev/$pROOT
     # mkfs.btrfs -f /dev/$pHOME
+    echo $pBOOT
+
+    echo $pROOT
 
     if [[ "$CHOICE" == "ext4" ]]; then 
         mount /dev/$pROOT /mnt/
-        mkdir -p /mnt/{boot/efi,home}
+        mkdir -p /mnt/boot/efi
         mount /dev/$pBOOT /mnt/boot/efi
     else 
         mount /dev/"$pROOT" /mnt
@@ -71,7 +74,7 @@ main() {
     mkdir /mnt/custom-arch
 
     cp post-install.sh /mnt/custom-arch/
-    cp applist.txt /mnt/custom-arch/
+    cp app.list /mnt/custom-arch/
 
     arch-chroot /mnt ./custom-arch/post-install.sh
 

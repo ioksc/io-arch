@@ -2,44 +2,58 @@
 clear
 # ------------------------------------------------------
 # <Configurar> Editar antes de ejecutar
-keyboardlayout="us"
-zoneinfo="America/Los_Angeles"
-hostname="<pc-name>"
-username="<user1>"
+KEYBOARDLAYOUT="us" # es, us
+TIMEZONE="" # Elija la zona horaria: America/Los_Angeles | Dejar Blanco para automatizar
+HOSTNAME="<pc-name>" # Nombre de la Maquina
+USERNAME="<user1>" # Nombre de Usuario
+ENCODING="en_US.UTF-8" # "es_ES.UTF-8" - Sistema de Codificación
 # ------------------------------------------------------
 
 # ------------------------------------------------------
 # Establecer la zona horario para sync
 # ------------------------------------------------------
-ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
+configure_pacman() {
+    sed -i -e "/^#Color/c\\Color" \
+        -e "/^#VerbosePkgLists/c\\VerbosePkgLists" \
+        -e "/^#ParallelDownloads/c\\ParallelDownloads = 12\\nILoveCandy" /etc/pacman.conf
+}
+
+
+
+
+if [ -z "$ZONEINFO" ]; then
+    TIMEZONE=$(curl https://ipapi.co/timezone)
+fi
+ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 hwclock --systohc
 
 # pacman -Syy
-
+configure_pacman
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman --noconfirm -S $(cat /custom-arch/applist.txt)
+pacman --needed --noconfirm -S -< /custom-arch/app.list
 
 # ------------------------------------------------------
 # <Configurar> Establecer el Lenguaje utf8 ES
 # ------------------------------------------------------
-echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen
+echo "$ENCODING UTF-8" >> /etc/locale.gen
 locale-gen
-echo "LANG=es_ES.UTF-8" >> /etc/locale.conf
+echo "LANG='$ENCODING" >> /etc/locale.conf
 
 # ------------------------------------------------------
 # Establcecer la configuracion del Teclado
 # ------------------------------------------------------
-echo "KEYMAP=$keyboardlayout" >> /etc/vconsole.conf
+echo "FONT=ter-v18n" >> /etc/vconsole.conf
+echo "KEYMAP=$KEYBOARDLAYOUT" >> /etc/vconsole.conf
 
 # ------------------------------------------------------
 # Establecer el hostname y el archivos hosts
 # ------------------------------------------------------
-echo "$hostname" >> /etc/hostname
+echo "$HOSTNAME" >> /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
+echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
 # ------------------------------------------------------
 # Habilitar Servicios
@@ -61,9 +75,9 @@ passwd root
 # ------------------------------------------------------
 # Agregar usuario
 # ------------------------------------------------------
-echo "Añadiendo el usuario $username"
-useradd -m -G wheel $username
-passwd $username
+echo "Añadiendo el usuario $USERNAME"
+useradd -m -G wheel $USERNAME
+passwd $USERNAME
 
 # ------------------------------------------------------
 # Instalación de Grub
@@ -82,7 +96,7 @@ echo "Despues: %wheel ALL=(ALL:ALL) ALL"
 echo ""
 read -p "Open sudoers now?" c
 EDITOR=vim sudo -E visudo
-usermod -aG wheel $username
+usermod -aG wheel $USERNAME
 
 echo "Instalacion Completada, para salir"
 echo "exit"

@@ -36,13 +36,12 @@ main() {
     echo $pBOOT
 
     echo $pROOT
+    mount /dev/"$pROOT" /mnt/
 
     if [[ "$CHOICE" == "ext4" ]]; then 
-        mount /dev/"$pROOT" /mnt/
         mkdir -p /mnt/boot/efi
         mount /dev/"$pBOOT" /mnt/boot/efi
     else 
-        mount /dev/"$pROOT" /mnt
         btrfs su cr /mnt/@
         btrfs su cr /mnt/@cache
         btrfs su cr /mnt/@home

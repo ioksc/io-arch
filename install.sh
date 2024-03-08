@@ -29,9 +29,9 @@ main() {
     echo "Seleccionar particiones a$(gum style --foreground "#04B575" " formatear"):"
     PARTITIONS=$(gum choose --cursor-prefix "[ ] " --selected-prefix "[✓] " --no-limit "$pBOOT" "$pROOT")
 
-    grep -q "$pBOOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Boot..." -- mkfs.fat -F 32 /dev/$pBOOT
-    [[ "$CHOICE" == "ext4" ]] && grep -q "$pROOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Root..." -- mkfs.EXT4 /dev/$pROOT
-    [[ "$CHOICE" == "btrfs" ]] && grep -q "$pROOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Root..." -- mkfs.btrfs -f /dev/$pROOT
+    grep -q "$pBOOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Boot..." -- mkfs.fat -F 32 /dev/"$pBOOT"
+    [[ "$CHOICE" == "ext4" ]] && grep -q "$pROOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Root..." -- mkfs.EXT4 /dev/"$pROOT"
+    [[ "$CHOICE" == "btrfs" ]] && grep -q "$pROOT" <<<"$PARTITIONS" && gum spin -s line --title "Formateando Root..." -- mkfs.btrfs -f /dev/"$pROOT"
     # mkfs.btrfs -f /dev/$pHOME
     echo $pBOOT
 
